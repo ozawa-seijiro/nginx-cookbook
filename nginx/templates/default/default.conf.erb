@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Nginxのデフォルトの設定ファイルの内容</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta property="fb:admins" content="710497244" />
+	<meta property="og:title" content="Nginxのデフォルトの設定ファイルの内容" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="http://web.showjin.me/nginx_default-nginx-conf.html" />
+	<meta property="og:image" content="http://web.showjin.me/wp-content/themes/mono/images/guigui.gif" />
+	<meta property="og:site_name" content="ウェブ、ショウジン" />
+	<meta property="og:description" content="前回の「EX-CLOUDのCent OS 5.8にNginxをインストール」でCent OS 5.8にNginxをインストールできたので、設定ファイルのデフォルトの内容を確認。 /etc/nginx/nginx.conf [bash] user nginx; worker_processes 1; error_log /var/log/nginx/error.log warn; pid    /var/run/nginx.pid;  events {   worker_connections 1024; }  http {   include    /etc/nginx/mime.types;   default_type application/octet-stream;   log_format main '$remote_addr - $remote_user [$time_local] $request '            '$status $body_bytes_sent $http_referer '          ..." />
+	<meta property="fb:app_id" content="145875908815916" />
+	<link rel="icon" href="wp-content/themes/mono/_img/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="wp-content/themes/mono/_img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="wp-content/themes/mono/_css/style.css">
+	<link rel="stylesheet" href="wp-content/themes/mono/_css/font-awesome.css">
+	<link rel="stylesheet" href="wp-content/themes/mono/_js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+	<link rel="alternate" type="application/rss+xml" title="ウェブ、ショウジン RSS/RSS1.0 Feed" href="feed/rdf">
+	<link rel="alternate" type="application/atom+xml" title="ウェブ、ショウジン RSS2 Feed" href="feed.rss">
+	<link rel="alternate" type="application/atom+xml" title="ウェブ、ショウジン Atom Feed" href="feed/atom">
+	<link rel="pingback" href="xmlrpc.php">
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-21110645-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<link rel='stylesheet' id='jetpack_css-css'  href='wp-content/plugins/jetpack/css/jetpack-ver=3.3.css' type='text/css' media='all' />
+<link rel='stylesheet' id='shCore-css'  href='wp-content/plugins/syntax-highlighter/2.1.364/css/shCore-ver=2.1.364.css' type='text/css' media='all' />
+<link rel='stylesheet' id='shThemeDjango-css'  href='wp-content/plugins/syntax-highlighter/2.1.364/css/shThemeDjango-ver=2.1.364.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-pagenavi-css'  href='wp-content/plugins/wp-pagenavi/pagenavi-css-ver=2.70.css' type='text/css' media='all' />
+<link rel='shortlink' href='http://wp.me/p1kCfl-bP' />
+            <!-- Wordpress Popular Posts v3.0.3 -->
+            <script type="text/javascript">//<![CDATA[
+				jQuery(document).ready(function(){
+					jQuery.get('http://web.showjin.me/wp-admin/admin-ajax.php', {
+						action: 'update_views_ajax',
+						token: '81518c4c82',
+						id: 733					}, function(response){
+						if ( console && console.log )
+							console.log(response);
+					});
+				});
+			//]]></script>
+            <!-- End Wordpress Popular Posts v3.0.3 -->
+            
+<!-- All in One SEO Pack 2.1.4 by Michael Torbert of Semper Fi Web Design[386,402] -->
+<meta name="description" content="前回の「EX-CLOUDのCent OS 5.8にNginxをインストール」でCent OS 5.8にNginxをインストールできたので、設定ファイル（/etc/nginx/nginx.conf）のデフォルトの内容を確認。" />
+
+<meta name="keywords" content="nginx,nginx.conf,設定,デフォルト" />
+
+<link rel="canonical" href="nginx_default-nginx-conf.html" />
+<!-- /all in one seo pack -->
+</head>
+<body class="single single-post postid-733 single-format-standard">
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) {return;}
+	js = d.createElement(s);
+	js.id = id;
+	js.async = true;
+	js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=145875908815916";
+	fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	<!--[if lt IE 7]>
+		<p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+	<![endif]-->
+
+	<header id="common-header">
+		<a href="index.html" id="name-site">ウェブ、ショウジン</a>
+		<div id="search-block">
+			<form method="get" id="search-form" action="http://web.showjin.me">
+				<input type="text" class="search-keyword" name="s" id="s">
+				<input type="image" src="wp-content/themes/mono/_img/btn-search.png" alt="検索" name="searchBtn" id="btn-search">
+			</form>
+		</div>
+	</header>
+
+	
+
+	<div id="container" class="cf">
+
+		<div id="main">
+
+
+						<section class="post">
+				<h1 class="post-title">Nginxのデフォルトの設定ファイルの内容</h1>
+
+				<div class="datetime">2013-1-2</div>
+<div class="eyecatch"></div>
+<dl class="optional-info">
+	<dt class="category">Category</dt>
+	<dd><a href="category/server.html" rel="category tag">Server</a></dd>
+</dl>
+
+
+				<div class="adsense_single-top">
+					<script type="text/javascript"><!--
+					google_ad_client = "ca-pub-2231839948574982";
+					/* ウェブ、ショウジン // SingleTop 468_60 */
+					google_ad_slot = "1567580946";
+					google_ad_width = 468;
+					google_ad_height = 60;
+					//-->
+					</script>
+					<script type="text/javascript"
+					src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+					</script>
+				</div>
+
+				<div class="post-body">
+
+					<div class="adsense_single-top2">
+						<script type="text/javascript"><!--
+						google_ad_client = "ca-pub-2231839948574982";
+						/* WebShowjin_singleTop_336&#42;280 */
+						google_ad_slot = "4195763251";
+						google_ad_width = 336;
+						google_ad_height = 280;
+						//-->
+						</script>
+						<script type="text/javascript"
+						src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+						</script>
+						<ul class="social-btn-v">
+	<li><a href="https://twitter.com/share" class="twitter-share-button" data-via="showzine">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></li>
+	<li><a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="vertical" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script></li>
+	<li><g:plusone href="http://web.showjin.me/nginx_default-nginx-conf.html" size="medium"></g:plusone></li>
+	<li><div class="fb-like" data-href="http://web.showjin.me/nginx_default-nginx-conf.html" data-send="false" data-layout="box_count" data-width="200" data-show-faces="true" data-font="arial"></div></li>
+</ul>
+					<!-- // .adsense_single-top2 --></div>
+
+					<p>前回の「<a href="ex-cloud_install-nginx_to-centos58.html" title="EX-CLOUDのCent OS 5.8にNginxをインストール">EX-CLOUDのCent OS 5.8にNginxをインストール</a>」でCent OS 5.8にNginxをインストールできたので、設定ファイルのデフォルトの内容を確認。</p>
+<p>/etc/nginx/nginx.conf</p>
+<pre class="brush: bash; auto-links: false;">
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+}
+</pre>
+<p>末尾に</p>
+<p>/etc/nginx/conf.d/*.conf</p>
+<p>とあり、これがincludeされていることが分かる。</p>
+<p>/etc/nginx/conf.dの内容を確認。</p>
+<p>default.conf<br />
+example_ssl.conf</p>
+<p>とあり、このうちのdefault.confを確認すると</p>
+<pre class="brush: bash; auto-links: false;">
+server {    listen       80;
+    server_name  localhost;
+
+    #charset koi8-r;
+    #access_log  /var/log/nginx/log/host.access.log  main; 
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+</pre>
+<p>locationブロックを確認すると、ドキュメントルートの設定が</p>
+<p>root /usr/share/nginx/html</p>
+<p>となっている。</p>
+<p>この/usr/share/nginx/htmlディレクトリを確認すると</p>
+<p>50x.html<br />
+index.html</p>
+<p>この2つのファイルがあった。</p>
+<p>index.htmlの中身を確認すると、Nginxをインストールした後、Webブラウザで該当ホストにアクセスすると表示されるデフォルトのhtmlの内容だった。</p>
+<p>ということで、Nginxをインストールするとデフォルトではこの</p>
+<p>/usr/share/nginx/html</p>
+<p>というディレクトリがWebルートディレクトリになっていることが確認できた。</p>
+<p>バーチャルホスト運用する予定なので、ホストごとにWebルートディレクトリを別にそれぞれ設定するから、この設定はあくまでも確認ということで。</p>
+
+			<ul class="social-btn">
+	<li>
+		<script type="text/javascript" src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+			<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://web.showjin.me/nginx_default-nginx-conf.html" data-text="RT @showzine: Nginxのデフォルトの設定ファイルの内容" data-lang="en" data-count="none">Tweet</a>
+	</li>
+<li><a href="nginx_default-nginx-conf.html" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script></li>
+	<li><g:plusone href="http://web.showjin.me/nginx_default-nginx-conf.html" size="medium"></g:plusone></li>
+	<li class="fb"><fb:like href="http://web.showjin.me/nginx_default-nginx-conf.html" send="false" layout="button_count" width="200" show_faces="true"></fb:like></li>
+</ul>
+			<script type="text/javascript"><!--
+			google_ad_client = "ca-pub-2231839948574982";
+			/* WebShowjin_singleBtm_ 336&#42;280 */
+			google_ad_slot = "0618713055";
+			google_ad_width = 336;
+			google_ad_height = 280;
+			//-->
+			</script>
+			<script type="text/javascript"
+			src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+			</script>
+
+				<!-- // .post-body --></div>
+
+			</section>
+			
+
+
+		<!-- // #main --></div>
+
+		<div id="sub">
+	<section id="categories">
+		<h2>Categories</h2>
+
+		<ul>
+				<li class="cat-item cat-item-141"><a href="category/cms.html" >CMS</a>
+</li>
+	<li class="cat-item cat-item-201"><a href="category/css2.html" >CSS</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="category/facebook.html" >Facebook</a>
+</li>
+	<li class="cat-item cat-item-202"><a href="category/html.html" >HTML</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="category/html5.html" >HTML5</a>
+</li>
+	<li class="cat-item cat-item-12"><a href="category/javascript.html" >JavaScript</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="category/jquery.html" >jQuery</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="category/linux.html" >Linux</a>
+</li>
+	<li class="cat-item cat-item-16"><a href="category/mobile-2.html" >Mobile</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="category/mysql.html" >MySQL</a>
+</li>
+	<li class="cat-item cat-item-210"><a href="category/osx.html" >OS X</a>
+</li>
+	<li class="cat-item cat-item-19"><a href="category/php.html" >PHP</a>
+</li>
+	<li class="cat-item cat-item-23"><a href="category/seo.html" >SEO</a>
+</li>
+	<li class="cat-item cat-item-24"><a href="category/server.html" >Server</a>
+<ul class='children'>
+	<li class="cat-item cat-item-35"><a href="category/server/apache.html" >Apache</a>
+</li>
+	<li class="cat-item cat-item-217"><a href="category/server/nginx-server.html" >Nginx</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-215"><a href="category/web制作全般.html" >Web制作全般</a>
+</li>
+	<li class="cat-item cat-item-28"><a href="category/web-technology.html" >Web技術</a>
+</li>
+	<li class="cat-item cat-item-29"><a href="category/wordpress.html" >WordPress</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="category/sp-app.html" >スマートフォン・アプリ</a>
+</li>
+	<li class="cat-item cat-item-140"><a href="category/programming.html" >プログラミング</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="category/未分類.html" >未分類</a>
+</li>
+		</ul>
+	</section>
+	<section id="categories">
+		<h2>Tag Cloud</h2>
+			<a href='tag/admob.html' class='tag-link-115' title='3件のトピック' style='font-size: 9.8666666666667pt;'>AdMob</a>
+<a href='tag/android.html' class='tag-link-34' title='8件のトピック' style='font-size: 15.311111111111pt;'>Android</a>
+<a href='tag/apache.html' class='tag-link-35' title='17件のトピック' style='font-size: 20.133333333333pt;'>Apache</a>
+<a href='tag/centos.html' class='tag-link-40' title='5件のトピック' style='font-size: 12.666666666667pt;'>centos</a>
+<a href='tag/codeigniter.html' class='tag-link-43' title='4件のトピック' style='font-size: 11.422222222222pt;'>CodeIgniter</a>
+<a href='tag/eccube.html' class='tag-link-7' title='19件のトピック' style='font-size: 20.755555555556pt;'>EC-CUBE</a>
+<a href='tag/facebookアプリ.html' class='tag-link-52' title='5件のトピック' style='font-size: 12.666666666667pt;'>facebookアプリ</a>
+<a href='tag/facebookページ.html' class='tag-link-53' title='5件のトピック' style='font-size: 12.666666666667pt;'>facebookページ</a>
+<a href='tag/feed.html' class='tag-link-54' title='2件のトピック' style='font-size: 8pt;'>feed</a>
+<a href='tag/firefox.html' class='tag-link-55' title='2件のトピック' style='font-size: 8pt;'>Firefox</a>
+<a href='tag/flash.html' class='tag-link-9' title='3件のトピック' style='font-size: 9.8666666666667pt;'>Flash</a>
+<a href='tag/google.html' class='tag-link-56' title='4件のトピック' style='font-size: 11.422222222222pt;'>google</a>
+<a href='tag/googleanalytics.html' class='tag-link-57' title='3件のトピック' style='font-size: 9.8666666666667pt;'>googleanalytics</a>
+<a href='tag/htaccess.html' class='tag-link-58' title='11件のトピック' style='font-size: 17.333333333333pt;'>htaccess</a>
+<a href='tag/ipad.html' class='tag-link-112' title='2件のトピック' style='font-size: 8pt;'>iPad</a>
+<a href='tag/iphone.html' class='tag-link-107' title='4件のトピック' style='font-size: 11.422222222222pt;'>iPhone</a>
+<a href='tag/javascript.html' class='tag-link-12' title='3件のトピック' style='font-size: 9.8666666666667pt;'>JavaScript</a>
+<a href='tag/lamp.html' class='tag-link-64' title='4件のトピック' style='font-size: 11.422222222222pt;'>lamp</a>
+<a href='tag/mobile.html' class='tag-link-66' title='3件のトピック' style='font-size: 9.8666666666667pt;'>mobile</a>
+<a href='tag/nginx.html' class='tag-link-68' title='16件のトピック' style='font-size: 19.666666666667pt;'>nginx</a>
+<a href='tag/ogp.html' class='tag-link-69' title='4件のトピック' style='font-size: 11.422222222222pt;'>ogp</a>
+<a href='tag/pear.html' class='tag-link-70' title='5件のトピック' style='font-size: 12.666666666667pt;'>pear</a>
+<a href='tag/php-2.html' class='tag-link-99' title='5件のトピック' style='font-size: 12.666666666667pt;'>php</a>
+<a href='tag/plugin.html' class='tag-link-71' title='7件のトピック' style='font-size: 14.533333333333pt;'>plugin</a>
+<a href='tag/rollover.html' class='tag-link-72' title='2件のトピック' style='font-size: 8pt;'>rollover</a>
+<a href='tag/rss.html' class='tag-link-74' title='3件のトピック' style='font-size: 9.8666666666667pt;'>rss</a>
+<a href='tag/sendmail.html' class='tag-link-98' title='2件のトピック' style='font-size: 8pt;'>sendmail</a>
+<a href='tag/setting.html' class='tag-link-76' title='17件のトピック' style='font-size: 20.133333333333pt;'>setting</a>
+<a href='tag/smarty.html' class='tag-link-78' title='3件のトピック' style='font-size: 9.8666666666667pt;'>smarty</a>
+<a href='tag/ssh.html' class='tag-link-79' title='2件のトピック' style='font-size: 8pt;'>ssh</a>
+<a href='tag/titanium-mobile.html' class='tag-link-105' title='8件のトピック' style='font-size: 15.311111111111pt;'>Titanium Mobile</a>
+<a href='tag/titanium-studio.html' class='tag-link-104' title='4件のトピック' style='font-size: 11.422222222222pt;'>Titanium Studio</a>
+<a href='tag/tutorial.html' class='tag-link-82' title='16件のトピック' style='font-size: 19.666666666667pt;'>tutorial</a>
+<a href='tag/ubuntu.html' class='tag-link-84' title='23件のトピック' style='font-size: 22pt;'>ubuntu</a>
+<a href='tag/vim-2.html' class='tag-link-143' title='2件のトピック' style='font-size: 8pt;'>vim</a>
+<a href='tag/virtualbox.html' class='tag-link-119' title='3件のトピック' style='font-size: 9.8666666666667pt;'>VirtualBox</a>
+<a href='tag/vmware.html' class='tag-link-85' title='4件のトピック' style='font-size: 11.422222222222pt;'>vmware</a>
+<a href='tag/vps.html' class='tag-link-86' title='10件のトピック' style='font-size: 16.711111111111pt;'>vps</a>
+<a href='tag/windows.html' class='tag-link-120' title='2件のトピック' style='font-size: 8pt;'>Windows</a>
+<a href='tag/wordpress.html' class='tag-link-29' title='4件のトピック' style='font-size: 11.422222222222pt;'>WordPress</a>
+<a href='tag/xampp.html' class='tag-link-88' title='3件のトピック' style='font-size: 9.8666666666667pt;'>xampp</a>
+<a href='tag/youtube.html' class='tag-link-128' title='2件のトピック' style='font-size: 8pt;'>youtube</a>
+<a href='tag/さくらインターネット.html' class='tag-link-137' title='15件のトピック' style='font-size: 19.2pt;'>さくらインターネット</a>
+<a href='tag/アクセス解析.html' class='tag-link-90' title='2件のトピック' style='font-size: 8pt;'>アクセス解析</a>
+<a href='tag/カスタム投稿.html' class='tag-link-133' title='2件のトピック' style='font-size: 8pt;'>カスタム投稿</a>	</section>
+
+<!-- // #sub --></div>
+	
+
+	<!-- // #container --></div>
+
+	<footer id="footer-common">
+	
+		<div id="wrapper-footer">
+			<p id="copyright">Copyright &copy; WEB SHOWJIN All Rights Reserved.</p>
+		</div>
+
+	</footer>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.js"></script>
+	<script src="wp-content/themes/mono/_js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<script>
+		 $(function(){
+			  $(".fancybox").fancybox({
+				   'opacity': true,
+				   'overlayShow': false,
+				   'transitionIn': 'elastic',
+				   'transitionOut': 'none'
+			  });
+		 });
+	</script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.8.1.min.js"><\/script>')</script>
+	<script src="https://apis.google.com/js/plusone.js"></script>
+		<div style="display:none">
+	</div>
+<script type="text/javascript" src="wp-content/plugins/syntax-highlighter/2.1.364/js/shCore-ver=2.1.364.js"></script>
+<script type="text/javascript" src="wp-content/plugins/syntax-highlighter/2.1.364/js/shBrushBash-ver=2.1.364.js"></script>
+<script type="text/javascript">//<![CDATA[
+SyntaxHighlighter.config.strings.expandSource="+ ソースを表示";SyntaxHighlighter.config.strings.viewSource="プレインテキスト";SyntaxHighlighter.config.strings.copyToClipboard="クリップボードにコピー";SyntaxHighlighter.config.strings.copyToClipboardConfirmation="クリップボードにコピーされました";SyntaxHighlighter.config.strings.print="印刷";SyntaxHighlighter.config.strings.help="?";SyntaxHighlighter.config.strings.noBrush="Can't find brush for: ";SyntaxHighlighter.config.strings.brushNotHtmlScript="Brush wasn't made for html-script option: ";SyntaxHighlighter.config.clipboardSwf="http://web.showjin.me/wp-content/plugins/syntax-highlighter/2.1.364/js/clipboard.swf";
+SyntaxHighlighter.all();
+//]]></script>
+
+	<script src="http://stats.wp.com/e-201509.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.3',blog:'19689919',post:'733',tz:'9'});
+	var load_cmc = function(){linktracker_init(19689919,733,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script></body>
+</html>
